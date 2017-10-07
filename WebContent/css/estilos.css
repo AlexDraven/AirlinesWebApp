@@ -1,0 +1,39 @@
+.elems {
+    margin: 20px 0px 20px 0px !important;
+}
+
+.etiquetas {
+	margin: 20px 15px 5px 15px !important;
+}
+
+.tabla, tr, td {
+	border: 1px solid #d9534f;
+	padding: 10px;
+}
+
+.tabla {
+	align: center;
+	width: 100%;	
+}
+
+/** TODO - Complementar estilo para reserva exitosa. */
+.exito {
+	color: green;
+	text-align: center;	
+}
+
+
+.ko {
+	color: red;
+	text-align: center;	
+}
+
+
+.validacion {
+	color: red;
+}
+
+.leyenda {
+	border: 1px solid #5bc0de;
+	text-align: center; 
+}

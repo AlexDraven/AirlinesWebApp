@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Obtener datos personales</title>
+
+	<!-- Librerias CSS -->
+	<link rel="stylesheet" href="css/libs/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
+	
+	<!-- Librerias JS -->
+  	<script src="js/libs/jquery.min.js"></script>
+  	<script src="js/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/libs/angular.min.js"></script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/estilos.css" />
+
+	<!-- Modulos -->
+	<script type="text/javascript" src="js/ejercApp.js"></script>
+	
+	<!-- Controladores -->
+	<script src="js/ejercCtrl.js"></script>
+
+</head>
+<body>
+	<div data-ng-app="ejercApp">
+		<div data-ng-controller="ejercCtrl">
+			<div class="container">
+			  
+			  <h2><i class="fa fa-plane fa-3x" aria-hidden="true"/>Pepito Airlines - Reservaciones vuelo 30/10/2017 8:00hs a Tokio</h2>
+			  <fieldset>
+			  	  <legend class="leyenda">Alta de reserva</legend>
+				  <div class="row">
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<h4 class="etiquetas">Nombre Cliente:</h4>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<input type="text" size="20" maxlength="20" ng-model="nombre" class="elems" />
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<!-- TODO - Completar Apellido -->
+						<h4 class="etiquetas">Apellido Cliente:</h4>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<!-- TODO - Completar Apellido -->
+						<input type="text" size="20" maxlength="20" ng-model="apellido" class="elems" />
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12"> 
+						<!-- TODO - Completar Documento -->
+						<h4 class="etiquetas">Documento:</h4>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12"> 
+						<!-- TODO - Completar Documento -->
+						<input type="number" size="20" maxlength="20" ng-model="documento" class="elems" />
+					</div>
+				  </div>
+				  <div class="row">
+				  	<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+				  		<h4 class="etiquetas">Es solo partida:</h4>
+				  	</div>
+				  	<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+				  		<input type="checkbox" ng-model="partida" class="elems" />
+				  	</div>
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<h4 class="etiquetas">Sector butaca:</h4>
+					</div>	
+					<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+						<select name="ubicacion" ng-model="butaca" class="elems">
+							<option value="1-A">1-A</option>
+							<option value="1-B">1-B</option>
+							<option value="1-C">1-C</option>
+							<option value="1-D">1-D</option>
+							<option value="2-A">2-A</option>
+							<option value="2-B">2-B</option>
+							<option value="2-C">2-C</option>
+							<option value="2-D">2-D</option>
+						</select>
+					</div>
+					<div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+						<h4 class="etiquetas">Ejecutiva:</h4>
+					</div>	
+					<div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+						<input type="radio" name="clase" value="ejecutiva" ng-model="clase" class="elems" />
+					</div>
+					<div class="col-lg-1 col-md-2 col-sm-6 col-xs-12">
+						<h4 class="etiquetas">Turista:</h4>
+					</div>	
+					<div class="col-lg-1 col-md-2 col-sm-6 col-xs-12">
+						<input type="radio" name="clase" value="turista" ng-model="clase" class="elems" />
+					</div>
+				  </div>
+			  </fieldset>
+			  
+			  <!-- Trigger the modal with a button -->
+			  <button class="btn btn-info btn-lg" data-ng-click="reservar()">Reservar</button>
+
+			  <!-- Trigger the modal with a button -->
+			  <button class="btn btn-danger btn-lg" data-ng-click="verReservas()">Ver Reservas</button>
+			  
+			  <!-- Modal -->
+			  <div class="modal fade" id="ventanaModal" role="dialog">
+			    <div class="modal-dialog">
+			    
+			      <!-- Modal content-->
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">X</button>
+			          <h4 class="modal-title"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>Pepito Airlines</h4>
+			        </div>
+			        <div class="modal-body">
+						<div ng-show="modal == '0'"><h4 class="validacion">Completar campo/s obligatorios: {{ mensaje }}</h4></div>
+						<!-- TODO - Complementar mensaje para reserva exitosa. -->
+						<div ng-show="modal == '1'"><h4 class="exito"><i class="fa fa-check fa-2x" aria-hidden="true"></i>Reserva exitosa.</h4></div>
+						<div ng-show="modal == '2'"><h4 class="ko"><i class="fa fa-close fa-2x" aria-hidden="true"></i>Butaca reservada.</h4></div>
+						<div ng-show="modal == '3'">
+							<h3>Reservaciones</h3>
+								<!-- TODO - Modificar grilla reservaciones. -->
+								<table class="tabla">
+									<thead>
+										<tr>
+											<td><h4>Butaca</h4></td>
+											<td><h4>Nombre</h4></td>
+											<td><h4>Apellido</h4></td>
+										</tr>
+									</thead>
+										<tr ng-repeat="x in reservaciones | orderBy : 'butaca'">
+								  			<td>{{ x.butaca }}</td>
+								  			<td>{{x.nombre}}</td>
+								  			<td>{{x.apellido}}</td>
+										</tr>
+								</table>
+						</div>
+					</div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
